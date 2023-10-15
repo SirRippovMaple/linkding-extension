@@ -8,6 +8,7 @@
   let precacheEnabled = false;
   let isSuccess = false;
   let isError = false;
+  let syncYaml = "";
 
   async function init() {
     const config = await getConfiguration();
@@ -15,6 +16,7 @@
     token = config.token;
     default_tags = config.default_tags;
     precacheEnabled = config.precacheEnabled;
+    syncYaml = config.syncYaml;
   }
 
   init();
@@ -25,6 +27,7 @@
       token,
       default_tags,
       precacheEnabled,
+      syncYaml
     };
 
     const testResult = await new LinkdingApi(config).testConnection(config);
@@ -80,6 +83,11 @@
       <br>
       <strong>Note:</strong> This will send the URL of all websites that you visit to your Linkding server, which will
       also be stored in the server logs.
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="input-sync-yaml">Sync YAML <span class="text-error">*</span></label>
+      <textarea class="form-input" id="input-sync-yaml" placeholder="" bind:value={syncYaml}></textarea>
+      <div class="form-input-hint">YAML definition for synchronization</div>
     </div>
   </div>
   <div class="divider"></div>

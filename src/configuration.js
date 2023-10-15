@@ -6,6 +6,7 @@ const DEFAULTS = {
   token: "",
   default_tags: "",
   precacheEnabled: false,
+  syncYaml: ""
 };
 
 export async function getConfiguration() {

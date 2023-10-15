@@ -3,6 +3,24 @@ export class LinkdingApi {
     this.configuration = configuration;
   }
 
+  async get(url) {
+    const configuration = this.configuration;
+
+    return fetch(
+        url, {
+            method: "GET",
+            headers: {
+                Authorization: `Token ${configuration.token}`,
+            },
+        }
+    ).then((response) => {
+        if (response.status === 200) {
+            return response.json().then((body) => body);
+        }
+        return Promise.reject(`Error loading bookmarks: ${response.statusText}`);
+    });
+  }
+
   async getBookmark(bookmarkId) {
     const configuration = this.configuration;
 

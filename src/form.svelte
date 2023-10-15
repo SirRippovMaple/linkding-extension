@@ -3,6 +3,7 @@
   import {getCurrentTabInfo, openOptions} from "./browser";
   import {loadTabMetadata, clearCachedTabMetadata} from "./cache";
   import {getProfile, updateProfile} from "./profile";
+  import {sync} from "./sync";
 
   export let api;
   export let configuration;
@@ -95,6 +96,10 @@
     }
   }
 
+  async function handleSync() {
+    await sync();
+  }
+
   function handleOptions() {
     openOptions();
   }
@@ -106,6 +111,7 @@
 </script>
 <div class="title-row">
   <h6>{bookmarkExists ? "Edit Bookmark" : "Add bookmark"}</h6>
+  <a href="#" on:click|preventDefault={handleSync}>Sync</a>
   <a href="#" on:click|preventDefault={handleOptions}>Options</a>
 </div>
 <div class="divider"></div>

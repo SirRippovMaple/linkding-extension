@@ -12,6 +12,36 @@ export async function getCurrentTabInfo() {
   };
 }
 
+export function getBookmarkBarId() {
+    return typeof browser !== 'undefined' ? "toolbar_____": "1";
+}
+
+export async function getBookmarkSubTree(id) {
+  if (typeof browser !== 'undefined') {
+    return await getBrowser().bookmarks.getSubTree(id);
+  }
+
+  const p = new Promise(resolve => {
+    getBrowser().bookmarks.getSubTree(id, result => resolve(result));
+  });
+  return p;
+}
+
+export async function createBookmark(bookmark) {
+  if(typeof browser !== 'undefined') {
+    return getBrowser().bookmarks.create(bookmark);
+  }
+
+  const p = new Promise(resolve => {
+    getBrowser().bookmarks.create(bookmark, result => resolve(result));
+  });
+  return p;
+}
+
+export async function removeBookmark(bookmarkId) {
+  return getBrowser().bookmarks.remove(bookmarkId);
+}
+
 function useChromeStorage() {
   return typeof chrome !== "undefined" && !!chrome.storage;
 }
